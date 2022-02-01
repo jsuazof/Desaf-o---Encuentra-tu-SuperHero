@@ -40,22 +40,18 @@
         <h1 class="mt-3 text-secondary">Encuentra tu SuperHero  </h1>
         <p>Ingresa el número del SuperHero a buscar </p>
         <p class="fs-2" >👇🏼 👇🏼 👇🏼 👇🏼</p>
-        <form id="form" class="d-flex">
-          <input 
-            id="inputBuscar"
-            class="form-control me-2"
-            type="search"
-            placeholder="Ingresa el numero aquí"
-          />
-        </form>
-        <button class="btn border-danger btn-warning mt-2 mb-3" id="btnPosts" type="submit">
-          Buscar
-        </button>
-
-        <section class="row" id="resultadoPosts">
+        <form id="formBuscar" class="d-flex">
+          <div class="input-group mb-3">
+            <button class="btn btn-outline-secondary" type="submit" id="button-addon1">Buscar</button>
+            <input id="inputBuscar" type="text" class="form-control" placeholder="ingresa el numero aquí" aria-label="Example text with button addon" aria-describedby="button-addon1">
+          </div>
           
-         
-        </section>
+        </form>
+        
+
+        <article class="clo 12 col-md-6" id="personaje"></article>
+        <article class="clo 12 col-md-6" id="chart"></article>
+
       </div>
     </main>
 
@@ -64,6 +60,7 @@
       integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
       crossorigin="anonymous"
     ></script>
+    <script src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
 
     <script src="apps.js"></script>
   </body>

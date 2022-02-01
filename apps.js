@@ -1,51 +1,110 @@
 $(() => {
-    const btnPosts = $("#btnPosts");
-    const resultadoPosts = $("#resultadoPosts");
-    const inputBuscar = $("#inputBuscar");
-    const form = $("#form")
+  const chart = $("#chart");
+  const personaje = $("#personaje");
+  const inputBuscar = $("#inputBuscar");
+  const formBuscar = $("#formBuscar");
 
+  $("img.logo").parent().css("text-align", "center");
 
-    form.on("submit", (e) => {
-        e.preventDefaul();
-    })
+  formBuscar.on("submit", (e) => {
+    e.preventDefault();
 
-    $('img.logo').parent().css('text-align','center');
-  
-    btnPosts.on("click", () => {
-      console.log("me diste click");
-      $.ajax({
-        url: "https://www.superheroapi.com/api.php/3525635500807579/${inputBuscar.val()}",
-        type: "GET",
-        dataType: "JSON",
-        success(data) {
-          console.log(data);
-          
-            resultadoPosts.append(`
-                <article class="col-12 col-md-4 mb-2">
-                    <div class="card mb-3" style="max-width: 540px;">
+    //validar que sea numero solamente
+    console.log(inputBuscar.val());
+
+    //limpiar chart, personaje y alerta de error
+    chart.html("");
+    personaje.html("");
+    //alert.addClass("d-none");
+
+    $.ajax({
+      url: `https://www.superheroapi.com/api.php/3525635500807579/${inputBuscar.val()}`,
+      type: "GET",
+      dataType: "JSON",
+      success(data) {
+        console.log(data);
+
+        personaje.append(`
+                    <section class="card mb-3">
                         <div class="row g-0">
                                 <div class="col-md-4">
-                                    <img src="..." class="img-fluid rounded-start" alt="...">
+                                    <img src="${data.image.url}" class="img-fluid rounded-start" alt="...">
                                 </div>
                                 <div class="col-md-8">
                                     <div class="card-body">
-                                    <h5 class="card-title">${data.name}</h5>
-                                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                                      <ul class="list-group list-group-flush">
+                                        <li class="list-group-item">Nombre: ${data.name}</li>
+                                        <li class="list-group-item">Name: ${data.name}</li>
+                                      </ul>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-                </article>
-            
+                          </div>
+                    </section>
             `);
-          
-        },
-        error(err) {
-          console.log(err);
-        }
-      });
+
+        const optionsChart = {
+          animationEnabled: true,
+          title: {
+            text: "Grafico",
+          },
+          zoomEnabled: true,
+          data: [
+            {
+              type: "pie",
+              showInLegend: true,
+              legendText: "{indexLabel}",
+              dataPoints: [
+                {
+                  y:
+                    data.powerstats.intelligence !== "null"
+                      ? data.powerstats.intelligence
+                      : 0,
+                  indexLabel: "intelligence",
+                },
+                {
+                  y:
+                    data.powerstats.strength !== "null"
+                      ? data.powerstats.strength
+                      : 0,
+                  indexLabel: "strength",
+                },
+                {
+                  y:
+                    data.powerstats.speed !== "null"
+                      ? data.powerstats.speed
+                      : 0,
+                  indexLabel: "speed",
+                },
+                {
+                  y:
+                    data.powerstats.durability !== "null"
+                      ? data.powerstats.durability
+                      : 0,
+                  indexLabel: "durability",
+                },
+                {
+                  y:
+                    data.powerstats.power !== "null"
+                      ? data.powerstats.power
+                      : 0,
+                  indexLabel: "power",
+                },
+                {
+                  y:
+                    data.powerstats.combat !== "null"
+                      ? data.powerstats.combat
+                      : 0,
+                  indexLabel: "combat",
+                },
+              ],
+            },
+          ],
+        };
+        chart.CanvasJSChart(optionsChart);
+      },
+      error(e) {
+        console.log(e);
+      },
     });
   });
-  
-
+});
