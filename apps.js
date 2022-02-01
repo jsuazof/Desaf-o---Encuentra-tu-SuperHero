@@ -11,11 +11,18 @@ $(() => {
 
     //validar que sea numero solamente
     console.log(inputBuscar.val());
+    const soloNumeros = /^\d+$/;
+
+    //console.log(soloNumeros.test(inputBuscar.val()));
 
     //limpiar chart, personaje y alerta de error
     chart.html("");
     personaje.html("");
     //alert.addClass("d-none");
+
+    if (!soloNumeros.test(inputBuscar.val())){
+      return console.log("no escribiste numeros");
+    }
 
     $.ajax({
       url: `https://www.superheroapi.com/api.php/3525635500807579/${inputBuscar.val()}`,
@@ -34,7 +41,13 @@ $(() => {
                                     <div class="card-body">
                                       <ul class="list-group list-group-flush">
                                         <li class="list-group-item">Nombre: ${data.name}</li>
-                                        <li class="list-group-item">Name: ${data.name}</li>
+                                        <li class="list-group-item">Conexiones: ${data.connections['group-affiliation']}</li>
+                                        <li class="list-group-item">Publicado por: ${data.biography.publisher}</li>
+                                        <li class="list-group-item">Ocupación: ${data.work.occupation}</li>
+                                        <li class="list-group-item">Primera Aparición: ${data.biography['first-appearance']}</li>
+                                        <li class="list-group-item">Altura: ${data.appearance.height}</li>
+                                        <li class="list-group-item">Peso: ${data.appearance.weight}</li>
+                                        <li class="list-group-item">Alianzas: ${data.biography.aliases}</li>
                                       </ul>
                                     </div>
                                 </div>
