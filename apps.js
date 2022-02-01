@@ -3,6 +3,7 @@ $(() => {
   const personaje = $("#personaje");
   const inputBuscar = $("#inputBuscar");
   const formBuscar = $("#formBuscar");
+  const alerta = $("#alerta")
 
   $("img.logo").parent().css("text-align", "center");
 
@@ -18,10 +19,11 @@ $(() => {
     //limpiar chart, personaje y alerta de error
     chart.html("");
     personaje.html("");
-    //alert.addClass("d-none");
+    alerta.addClass("d-none");
 
     if (!soloNumeros.test(inputBuscar.val())){
-      return console.log("no escribiste numeros");
+      return alerta.removeClass("d-none")
+      
     }
 
     $.ajax({
